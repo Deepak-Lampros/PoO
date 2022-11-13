@@ -188,7 +188,7 @@ function PreviousNft() {
                 <option value="select">select</option>
                 <option value="eth">eth</option>
                 <option value="0x1">0x1</option>
-                <option value="goerlli">goerli</option>
+                <option value="goerli">goerli</option>
                 <option value="0x5">0x5</option>
                 <option value="sepolia">sepolia</option>
                 <option value="0xaa36a7">0xaa36a7</option>
