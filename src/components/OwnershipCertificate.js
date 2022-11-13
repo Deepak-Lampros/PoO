@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { ethers } from "ethers";
 
 function OwnershipCertificate() {
-  const Poo_contract_address = "0x41abd4773aC12e1C68F8b16669B0fE383944EFB4";
+  const Poo_contract_address = "0xDBB86968f591537F30a5b3FeB8D4cc6aec3c603b";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const [certificateData, setCertificateData] = useState([]);

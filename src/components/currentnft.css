@@ -17,8 +17,8 @@
   display: grid;
   grid-template-columns: auto auto auto auto;
   grid-gap: 20px 50px;
-  padding: 100px 100px 50px;
-  padding-top: 10%;
+  /* padding: 100px 100px 50px; */
+  /* padding-top: 10%; */
 }
 .current-nft-div2 {
   z-index: -1;
@@ -63,7 +63,23 @@
   justify-content: space-around;
   align-items: center;
 }
-
+.poo-current-nft-block {
+  padding-top: 10%;
+  margin-right: 75vw;
+  display: inline-block;
+  position: relative;
+}
+.drop-down-lbl {
+  color: white;
+}
+select.language-dropdown {
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #00566a;
+  margin-left: 10px;
+  overflow-x: auto;
+}
 /* .............res................. */
 
 @media screen and (max-width: 1024px) {
@@ -90,8 +106,8 @@
   display: grid;
   grid-template-columns: auto auto auto auto;
   grid-gap: 20px 50px;
-  padding: 100px 100px 50px;
-  padding-top: 10%;
+  padding: 70px 100px 50px;
+  /* padding-top: 10%; */
 }
 .current-nft-div2 {
   z-index: -1;
@@ -136,7 +152,73 @@
   justify-content: space-around;
   align-items: center;
 }
+.center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  z-index: -1;
+  background-image: url("../assests/images/Bg.svg");
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: auto;
+  max-height: auto;
+  min-height: 100vh;
+}
+.wave {
+  width: 5px;
+  height: 100px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 86, 106, 1) 0%,
+    rgba(241, 99, 134, 1) 100%
+  );
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
 @media screen and (max-width: 1024px) {
   .current-button {
     font-size: 0.7rem;

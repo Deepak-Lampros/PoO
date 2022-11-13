@@ -63,10 +63,18 @@ function SingleCertificate() {
                       href="www.google.com"
                       className="social-img"
                     />
-                    <img src={Facebook} alt="" className="social-img" />
-                    <img src={Twitter} alt="" className="social-img" />
-                    <img src={Linkedln} alt="" className="social-img" />
-                    <img src={Whatsapp} alt="" className="social-img" />
+                    <a href="https://facebook.com/">
+                      <img src={Facebook} alt="" className="social-img" />
+                    </a>
+                    <a href="https://twitter.com/">
+                      <img src={Twitter} alt="" className="social-img" />
+                    </a>
+                    <a href="https://linkedin.com/">
+                      <img src={Linkedln} alt="" className="social-img" />
+                    </a>
+                    <a href="https://whatsapp.com/">
+                      <img src={Whatsapp} alt="" className="social-img" />
+                    </a>
                   </div>
                 </div>
               </>
