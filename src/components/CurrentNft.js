@@ -82,9 +82,9 @@ function CurrentNft() {
       for (let j = 0; j < transferNftData[0].result.length; j++) {
         if (
           walletNftData[0].result[i]["token_address"] ===
-            transferNftData[0].result[j]["token_address"] &&
+          transferNftData[0].result[j]["token_address"] &&
           walletNftData[0].result[i].token_id ===
-            transferNftData[0].result[j].token_id
+          transferNftData[0].result[j].token_id
         ) {
           walletNftData[0].result[i] = {
             ...walletNftData[0].result[i],
@@ -146,7 +146,7 @@ function CurrentNft() {
                 <option value="select">select</option>
                 <option value="eth">eth</option>
                 <option value="0x1">0x1</option>
-                <option value="goerli">goerlli</option>
+                <option value="goerli">goerli</option>
                 <option value="0x5">0x5</option>
                 <option value="sepolia">sepolia</option>
                 <option value="0xaa36a7">0xaa36a7</option>
@@ -177,7 +177,7 @@ function CurrentNft() {
                   return (
                     <div key={i} className="div-box-owned">
                       {item.metadata !== null &&
-                      item.name !== "Web3 Club Tour" ? (
+                        item.name !== "Web3 Club Tour" ? (
                         <div className="current-certi-main">
                           <div className="curren-certi-img">
                             <img
