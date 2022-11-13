@@ -1,0 +1,86 @@
+.p-main-register {
+  width: 40%;
+  margin: 0 auto;
+  margin-top: 40px;
+  height: 40vh;
+  padding: 15px;
+  border-radius: 50px;
+  background-color: #f7b24f;
+  box-shadow: 3.9661px 0px 41.0636px -4px rgba(0, 0, 0, 0.41);
+}
+
+.p-register-input {
+  margin-top: 15px;
+  background-color: transparent;
+  padding-left: 100px;
+}
+.signup-title {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: #ffff;
+  letter-spacing: 5px;
+}
+.register-icons2 {
+  width: 50px;
+  height: 60px;
+}
+.user-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.register-icons1 {
+  position: absolute;
+  margin-left: 5vw;
+  margin-top: 2vw;
+}
+.p-username {
+  width: 80%;
+  height: 7vh;
+  background-color: #fad39a;
+  border-radius: 100px;
+
+  margin: 0 auto;
+}
+.signup-btn {
+  margin-top: 30px;
+  background-color: #00566a;
+  color: white;
+
+  width: 15rem;
+  letter-spacing: 3px;
+  font-size: 1.5em;
+}
+.p-signup-main-div {
+  background-image: url("../assests/images/Background-navbar.svg");
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: auto;
+  min-height: 100vh;
+  padding-top: 20px;
+}
+.poo-registration {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+}
+.p-register-input {
+  margin-top: 5%;
+}
+input::placeholder {
+  color: #f16386;
+  font-family: "JosefinSans-Light";
+
+  font-size: 1.5em;
+}
+.logo-register {
+  width: 10%;
+  position: relative;
+  top: 0;
+}
+.user-info-poo {
+  margin-top: 20px;
+}
