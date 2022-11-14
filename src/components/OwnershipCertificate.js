@@ -20,8 +20,8 @@ function OwnershipCertificate() {
     var address = account[0];
     const mintNft = new ethers.Contract(Poo_contract_address, Poo.abi, signer);
     const certificates = await mintNft.getTokenIds(
-      // "0xeB05322B3C154121AA9114C570e393033074E1E2"
-      address
+      "0xeB05322B3C154121AA9114C570e393033074E1E2"
+      // address
     );
     console.log(certificates);
     setCertificateData(certificates);

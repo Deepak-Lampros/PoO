@@ -30,8 +30,8 @@ function PreviousNft() {
       method: "eth_requestAccounts",
     });
 
-    var address = account[0];
-    // var address = "0x6E212f16749300664e70496FDcf6F6e61f9E77E5";
+    // var address = account[0];
+    var address = "0xF50699109cA8AdB470dC8430Dbc36Cd7622D022f";
     const options = {
       method: "GET",
       url: `https://deep-index.moralis.io/api/v2/${address}/nft/transfers`,
@@ -201,8 +201,8 @@ function PreviousNft() {
                 <option value="bsc testnet">bsc testnet</option>
                 <option value="0x61">0x61</option>
                 <option value="avalanche">avalanche</option>
-                <option value="0xa86a"></option>
-                <option value="avalanche testnet"></option>
+                <option value="0xa86a">0xa86a</option>
+                <option value="avalanche testnet">avalanche testnet</option>
                 <option value="0xa869">0xa869</option>
                 <option value="fantom">fantom</option>
                 <option value="0xfa">0xfa</option>

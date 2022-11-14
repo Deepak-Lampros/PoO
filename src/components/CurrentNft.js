@@ -26,9 +26,9 @@ function CurrentNft() {
     });
     // setWalletAddress(account[0]);
 
-    var address = account[0];
+    // var address = account[0];
 
-    // var address = "0x6E212f16749300664e70496FDcf6F6e61f9E77E5";
+    var address = "0xF50699109cA8AdB470dC8430Dbc36Cd7622D022f";
     // console.log(address);
     const walletnft = {
       method: "GET",

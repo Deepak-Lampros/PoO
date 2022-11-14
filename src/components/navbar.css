@@ -82,4 +82,32 @@ li.submenu:hover {
   .logo {
     max-width: 600px;
   }
+  .logo {
+    max-width: 150px;
+    width: 100%;
+  }
+  .main-header {
+    padding: 10px;
+  }
+  .navigation-menu {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+  .logo-navbar {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .navbar-button {
+    width: 5rem;
+    height: 2rem;
+    background-color: #f8cd3f;
+    color: white;
+    letter-spacing: 2px;
+    border: none;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 30px;
+    text-transform: uppercase;
+  }
 }

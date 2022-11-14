@@ -35,37 +35,80 @@ function LandingPage() {
   const Poo_contract_address = "0xDBB86968f591537F30a5b3FeB8D4cc6aec3c603b";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
+  const [popup, setPopup] = useState(false);
   // console.log(signer);
 
   useEffect(() => {
     // getCurrentWalletConnected();
     // addWalleteListener();
+    // checkChain();
   }, []);
 
   const connectWallet = async () => {
-    if (typeof window != "undefined" && window.ethereum != "undefined") {
-      try {
-        const account = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        setWalletAddress(account[0]);
-        const userDetails = new ethers.Contract(Poo_contract_address, Poo.abi, signer);
-        const fetchdata = await userDetails.getUser();
-        if (fetchdata.email === "") {
-          navigate("/register");
+    const rider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = rider.getSigner();
+
+    const chain = await rider.getNetwork();
+    if (chain.chainId != 1029) {
+      console.log("btc");
+      setPopup(true);
+    }
+    else {
+      if (window.ethereum) {
+        try {
+          const account = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          setWalletAddress(account[0]);
+          const userDetails = new ethers.Contract(Poo_contract_address, Poo.abi, signer);
+          const fetchdata = await userDetails.getUser();
+          if (fetchdata.email === "") {
+            navigate("/register");
+          }
+          else {
+            navigate("/profile");
+          }
+          console.log(account[0]);
+        } catch (err) {
+          console.error(err.message);
         }
-        else {
-          navigate("/profile");
-        }
-        console.log(account[0]);
-      } catch (err) {
-        console.error(err.message);
+      } else {
+        console.log("Please Install Metamask");
       }
-    } else {
-      console.log("Please Install Metamast");
     }
   };
 
+  const checkChain = async () => {
+
+    // const chain = await provider.getNetwork();
+    // if (chain.chainId != 1029) {
+    //   var tx = addChain();
+    //   if (tx !== undefined)
+    //     connectWallet();
+    // }
+    // console.log(chain);
+  }
+
+  const addChain = () => {
+    if (window.ethereum) {
+      window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+          chainId: "0x405",
+          rpcUrls: ["https://pre-rpc.bittorrentchain.io/"],
+          chainName: "BitTorrent Chain Donau",
+          // nativeCurrency: {
+          //   name: "BitTorrent",
+          //   symbol: "BTT",
+          //   decimals: 18
+          // },
+          blockExplorerUrls: ["https://testscan.bittorrentchain.io/"]
+        }]
+      })
+    } else {
+      alert("Please Install a wallet to proceed.")
+    }
+  }
 
   //   if (typeof window != "undefined" && window.ethereum != "undefined") {
   //     try {
@@ -281,6 +324,23 @@ function LandingPage() {
           <h3>Copyright © 2022 PoO. All Rights Reserved</h3>
         </div>
       </section>
+
+      {popup ? (
+        <div className="add-chain-main">
+          <div className="add-chain-box ">
+            <p className="add-chain-message font-face-gm">
+              please switch to BTTC network
+            </p>
+            <button
+              className="bttc-btn font-face-gm-aqiure"
+              onClick={() => addChain()}
+            >
+              change network
+            </button>
+          </div>
+        </div>
+      ) : null}
+
     </>
   );
 }
