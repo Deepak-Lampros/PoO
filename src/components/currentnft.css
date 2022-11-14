@@ -33,16 +33,20 @@
 }
 .current-certi-main {
   border-radius: 10px;
-  /* box-shadow: 0px 0px 6px 5px #fad39a; */
+  /* box-shadow: 0px 0px 6px 5px #FAD39A; */
   background-color: #fad39a;
   /* padding: 50px; */
   z-index: 2;
   max-width: 450px;
   width: 100%;
-  height: auto;
+  height: 100%;
   margin: 0 auto;
+  transition: all 1s ease;
 }
-
+.current-certi-main:hover {
+  transform: scale(1.1);
+  transition: all 1s ease;
+}
 .current-flex-container {
   margin: 20px;
 }

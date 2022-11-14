@@ -6,13 +6,14 @@ import { Link } from "react-router-dom";
 import { ethers } from "ethers";
 
 function OwnershipCertificate() {
+  const [loading, setLoading] = useState(false);
   const Poo_contract_address = "0xDBB86968f591537F30a5b3FeB8D4cc6aec3c603b";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const [certificateData, setCertificateData] = useState([]);
 
   const fetchCertificate = async (e) => {
-
+    setLoading(true)
     const account = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
@@ -20,11 +21,12 @@ function OwnershipCertificate() {
     var address = account[0];
     const mintNft = new ethers.Contract(Poo_contract_address, Poo.abi, signer);
     const certificates = await mintNft.getTokenIds(
-      "0xF50699109cA8AdB470dC8430Dbc36Cd7622D022f"
-      // address
+      // "0xF50699109cA8AdB470dC8430Dbc36Cd7622D022f"
+      address
     );
     console.log(certificates);
     setCertificateData(certificates);
+    setLoading(false)
   };
   useEffect(() => {
     fetchCertificate();
@@ -32,7 +34,20 @@ function OwnershipCertificate() {
   return (
     <>
       <div className="ownership-grid-container">
-        {certificateData.map((item, i) => {
+        {loading ? (
+          <div class="center">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+          </div>
+        ) : (<>{certificateData.map((item, i) => {
           return (
             <>
               {" "}
@@ -53,7 +68,8 @@ function OwnershipCertificate() {
               </div>
             </>
           );
-        })}
+        })}</>)}
+
       </div>
     </>
   );
