@@ -6,7 +6,9 @@ import axios from "axios";
 
 function CurrentNft() {
   const [loading, setLoading] = useState(false);
-  const [chain, setChain] = useState("polygon");
+  // const [chains, setChain] = useState("mumbai");
+  var chain = "mumbai";
+
   const [nftData, setNftData] = useState([]);
   let walletNftData = [];
   let transferNftData = [];
@@ -20,85 +22,59 @@ function CurrentNft() {
 
   const fetchCurrentNft = async (chain) => {
     setLoading(true);
-    // console.log(address);
+    let cursor = ""
     const account = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
-    // setWalletAddress(account[0]);
 
     var address = account[0];
 
-    // var address = "0xF50699109cA8AdB470dC8430Dbc36Cd7622D022f";
-    // console.log(address);
-    const walletnft = {
-      method: "GET",
-      url: `https://deep-index.moralis.io/api/v2/${address}/nft`,
-      params: { chain: chain ? `${chain}` : "mumbai", format: "decimal" },
-      headers: {
-        accept: "application/json",
-        "X-API-Key":
-          "zx1cuyNtlU6YfCw1ARlaDUSJQLXC5uXlfM9ebpJhJSTbbglLJs6sqvHEF9avPztV",
-      },
-    };
+    // var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
+    do {
+      const walletnft = {
+        method: "GET",
+        url: `https://deep-index.moralis.io/api/v2/${address}/nft`,
+        params: { chain: chain ? `${chain}` : "mumbai", format: "decimal", cursor: cursor },
+        headers: {
+          accept: "application/json",
+          "X-API-Key":
+            "zx1cuyNtlU6YfCw1ARlaDUSJQLXC5uXlfM9ebpJhJSTbbglLJs6sqvHEF9avPztV",
+        },
+      };
 
-    await axios
-      .request(walletnft)
-      .then(function (response) {
-        walletNftData.push(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+      await axios
+        .request(walletnft)
+        .then(function (response) {
+          walletNftData.push(response.data);
+          console.log(response.data.cursor);
+          cursor = response.data.cursor;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    } while (cursor !== null);
 
-    const walletTransfers = {
-      method: "GET",
-      url: `https://deep-index.moralis.io/api/v2/${address}/nft/transfers`,
-      params: { chain: "mumbai", format: "decimal", direction: "both" },
-      headers: {
-        accept: "application/json",
-        "X-API-Key":
-          "zx1cuyNtlU6YfCw1ARlaDUSJQLXC5uXlfM9ebpJhJSTbbglLJs6sqvHEF9avPztV",
-      },
-    };
+    walletNftData[0] = { ...walletNftData[0], chain: chain };
+    getFinalNftData();
 
-    await axios
-      .request(walletTransfers)
-      .then(function (response) {
-        transferNftData.push(response.data);
-        // console.log(transferNftData);
-        getFinalNftData();
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+
     setLoading(false);
   };
 
   function getFinalNftData() {
-    // console.log(transferNftData);
-    // console.log(walletNftData);
-    // console.log(walletNftData[0].result);
-    for (let i = 0; i < walletNftData[0].result.length; i++) {
-      for (let j = 0; j < transferNftData[0].result.length; j++) {
-        if (
-          walletNftData[0].result[i]["token_address"] ===
-          transferNftData[0].result[j]["token_address"] &&
-          walletNftData[0].result[i].token_id ===
-          transferNftData[0].result[j].token_id
-        ) {
-          walletNftData[0].result[i] = {
-            ...walletNftData[0].result[i],
-            block_timestamp: transferNftData[0].result[j].block_timestamp,
-          };
-          break;
-        }
-      }
-    }
 
-    for (let i = 0; i < walletNftData[0].result.length; i++) {
-      walletNftData[0].result[i].metadata = JSON.parse(
-        walletNftData[0].result[i].metadata
-      );
+    let walletloop = 0;
+    console.log(walletNftData.length);
+    while (walletloop !== walletNftData.length) {
+      for (let i = 0; i < walletNftData[walletloop].result.length; i++) {
+
+        walletNftData[walletloop].result[i].metadata = JSON.parse(
+          walletNftData[walletloop].result[i].metadata
+        );
+
+      }
+      console.log("hello");
+      walletloop++;
     }
     console.log(walletNftData[0].result.length);
 
@@ -173,7 +149,12 @@ function CurrentNft() {
             <div className="current-grid-container">
               {/* -------------------------------------------------- */}
               {nftData.map((item) => {
+                if (item.chain !== undefined) {
+                  chain = item.chain;
+                }
+
                 return item.result.map((item, i) => {
+
                   return (
                     <div key={i} className="div-box-owned">
                       {item.metadata !== null &&
@@ -197,7 +178,7 @@ function CurrentNft() {
                           <div className="current-certi-mainbtn">
                             <Link
                               to={"/createcertificate"}
-                              state={{ data: item }}
+                              state={{ data: item, chain: chain }}
                             >
                               <button className="current-button font-face-gm-aquire-bold">
                                 Generate Certificate

@@ -21,8 +21,12 @@ function CreationCertificate() {
   const domEl = useRef(null);
   let metdataUri = "";
   let imageUri = "";
+  let nftData = "";
+  let userNftData = "";
   const dataFetchedRef = useRef(false);
   const inputRef = useRef();
+
+  // var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
 
   const Poo_contract_address = "0xDBB86968f591537F30a5b3FeB8D4cc6aec3c603b";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -33,12 +37,56 @@ function CreationCertificate() {
   const datas = location.state.data;
   console.log(datas);
   console.log("Location", location.state.data);
+  var chain = location.state.chain;
+
 
   const userDetails = new ethers.Contract(
     Poo_contract_address,
     Poo.abi,
     signer
   );
+
+  const getCertificateData = async () => {
+    const account = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+
+    var address = account[0];
+    // var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
+
+    let token_address = datas.token_address
+    let token_id = datas.token_id;
+    console.log(token_address);
+
+    const options = {
+      method: 'GET',
+      url: `https://deep-index.moralis.io/api/v2/nft/${token_address}/${token_id}/transfers`,
+      params: { chain: chain ? `${chain}` : "mumbai", format: 'decimal' },
+      headers: { accept: 'application/json', 'X-API-Key': 'zx1cuyNtlU6YfCw1ARlaDUSJQLXC5uXlfM9ebpJhJSTbbglLJs6sqvHEF9avPztV' }
+    };
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        nftData = response.data;
+        console.log(nftData.result[0].to_address);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+
+
+    for (let i = 0; i < nftData.result.length; i++) {
+      if (nftData.result[i].to_address.toLowerCase() === address.toLowerCase()) {
+        userNftData = nftData.result[i];
+      }
+    }
+    console.log(userNftData.block_timestamp);
+    setTemp(userNftData);
+
+
+
+  }
 
   function dataURLtoFile(dataurl, filename) {
     var arr = dataurl.split(","),
@@ -65,6 +113,7 @@ function CreationCertificate() {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
     getUser();
+    getCertificateData();
   }, []);
 
   const downloadImage = async () => {
@@ -226,9 +275,10 @@ function CreationCertificate() {
                 <img src={date} alt="" className="certificate-date-icon" />
                 <div className="div5">
                   <h3 className="date-input1 font-face-gm">
-                    {datas.from_date === undefined
-                      ? datas.block_timestamp.slice(0, 10)
-                      : datas.from_date.slice(0, 10)}
+                    {temp ? temp.block_timestamp.slice(0, 10) : null}
+                    {/* {datas.from_date === undefined */}
+                    {/* {userNftData.block_timestamp.slice(0, 10)} */}
+                    {/* // : datas.from_date.slice(0, 10)} */}
                   </h3>
                 </div>
               </div>
@@ -238,9 +288,10 @@ function CreationCertificate() {
                 <img src={date} alt="" className="certificate-date-icon" />
                 <div className="div5">
                   <h3 className="date-input1 font-face-gm">
-                    {datas.from_date === undefined
-                      ? new Date().toISOString().slice(0, 10)
-                      : datas.block_timestamp.slice(0, 10)}
+                    {/* {datas.from_date === undefined */}
+                    {datas.block_timestamp === undefined ? new Date().toISOString().slice(0, 10) :
+                      datas.block_timestamp.slice(0, 10)}
+
                   </h3>
                   {/* <input
                     type="file"
@@ -282,13 +333,7 @@ function CreationCertificate() {
                         Ownership Period
                       </div>
                       <div className="font-face-gm-extralight owner-period2">
-                        {datas.from_date === undefined
-                          ? datas.block_timestamp.slice(0, 10)
-                          : datas.from_date.slice(0, 10)}{" "}
-                        -{" "}
-                        {datas.from_date === undefined
-                          ? "Present"
-                          : datas.block_timestamp.slice(0, 10)}
+                        {temp ? temp.block_timestamp.slice(0, 10) : null} - Present
                       </div>
                     </div>
                     <div className="p-certi-content11">

@@ -11,6 +11,7 @@ import CurrentNft from "./components/CurrentNft";
 import PreviousNft from "./components/PreviousNft";
 import CreationCertificate from "./components/CreationCertificate";
 import Profile from "./components/Profile";
+import Cs from "./components/CreationCertificatePrevious";
 
 function App() {
   return (
@@ -35,10 +36,14 @@ function App() {
             path="/createcertificate"
             element={<CreationCertificate />}
           ></Route>
+          <Route
+            path="/createcertificateprevious"
+            element={<Cs />}>
+          </Route>
           <Route path="/profile" element={<Profile />}></Route>
         </Routes>
-      </Router>
-    </div>
+      </Router >
+    </div >
   );
 }
 

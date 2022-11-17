@@ -17,6 +17,8 @@ function PreviousNft() {
   let previousTransferNftData = [];
   let previousnfts = [];
   const dataFetchedRef = useRef(false);
+  var chain = "mumbai";
+
 
   useEffect(() => {
     if (dataFetchedRef.current) return;
@@ -31,7 +33,7 @@ function PreviousNft() {
     });
 
     var address = account[0];
-    // var address = "0xF50699109cA8AdB470dC8430Dbc36Cd7622D022f";
+    // var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
     const options = {
       method: "GET",
       url: `https://deep-index.moralis.io/api/v2/${address}/nft/transfers`,
@@ -40,6 +42,7 @@ function PreviousNft() {
         chain: chain ? `${chain}` : "mumbai",
         format: "decimal",
         direction: "from",
+        limit: 20,
       },
       headers: {
         accept: "application/json",
@@ -59,51 +62,11 @@ function PreviousNft() {
         console.error(error);
       });
 
-    const walletTransfers = {
-      method: "GET",
-      url: `https://deep-index.moralis.io/api/v2/${address}/nft/transfers`,
-      params: {
-        chain: chain ? `${chain}` : "mumbai",
-        format: "decimal",
-        direction: "to",
-      },
-      headers: {
-        accept: "application/json",
-        "X-API-Key":
-          "zx1cuyNtlU6YfCw1ARlaDUSJQLXC5uXlfM9ebpJhJSTbbglLJs6sqvHEF9avPztV",
-      },
-    };
+    perviousNftData[0] = { ...perviousNftData[0], chain: chain };
 
-    await axios
-      .request(walletTransfers)
-      .then(function (response) {
-        previousTransferNftData = response.data.result;
-        console.log(previousTransferNftData);
-        getFinalNftData();
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    getFinalNftData();
     setLoading(false);
     async function getFinalNftData() {
-      //for adding block_timestamp
-
-      console.log(perviousNftData.length);
-      for (let i = 0; i < perviousNftData.length; i++) {
-        for (let j = 0; j < previousTransferNftData.length; j++) {
-          if (
-            perviousNftData[i]["token_address"] ===
-            previousTransferNftData[j]["token_address"] &&
-            perviousNftData[i].token_id === previousTransferNftData[j].token_id
-          ) {
-            perviousNftData[i] = {
-              ...perviousNftData[i],
-              from_date: previousTransferNftData[j].block_timestamp,
-            };
-            break;
-          }
-        }
-      }
       console.log(perviousNftData);
 
       // for adding the meta data
@@ -214,120 +177,46 @@ function PreviousNft() {
             </div>
             <div className="current-grid-container">
               {previousnftData.map((item, i) => {
+
+                if (item.chain !== undefined) {
+                  chain = item.chain;
+                }
                 return (
-                  console.log("item", item),
+
                   (
                     <div key={i} className="div-box-owned">
-                      <div className="current-certi-main">
-                        <div className="curren-certi-img">
-                          <img
-                            src={item.metadata.image}
-                            alt=""
-                            className="nfts-img4"
-                          />
-                        </div>
-                        <div className="current-certi-info">
-                          <div>
-                            <h3 className="font-face-gm-aquire-bold">
-                              {item.metadata.name}
-                            </h3>
+                      {item.metadata !== null ?
+                        <div className="current-certi-main">
+                          <div className="curren-certi-img">
+                            <img
+                              src={item.metadata.image}
+                              alt=""
+                              className="nfts-img4"
+                            />
                           </div>
-                          <div className="current-certi-mainbtn">
-                            <Link
-                              to={"/createcertificate"}
-                              state={{ data: item }}
-                            >
-                              <button className="current-button font-face-gm-aquire-bold">
-                                Generate Certificate
-                              </button>
-                            </Link>
+                          <div className="current-certi-info">
+                            <div>
+                              <h3 className="font-face-gm-aquire-bold">
+                                {item.metadata.name}
+                              </h3>
+                            </div>
+                            <div className="current-certi-mainbtn">
+                              <Link
+                                to={"/createcertificateprevious"}
+                                state={{ data: item, chain: chain }}
+                              >
+                                <button className="current-button font-face-gm-aquire-bold">
+                                  Generate Certificate
+                                </button>
+                              </Link>
+                            </div>
                           </div>
-                        </div>
-                      </div>
+                        </div> : null}
                     </div>
                   )
                 );
               })}
-              {/* <div className="div-box-owned">
-          <div className="current-certi-main">
-            <div className="curren-certi-img">
-              <img src={nft2} alt="" className="nfts-img4" />
-            </div>
-            <div className="current-certi-info">
-              <div>
-                <h3 className="font-face-gm-aquire-bold">NFT Name</h3>
-                <p className="font-face-gm-aqiure">Secondory Text</p>
-              </div>
-              <div className="current-certi-mainbtn">
-                <Link to="/createcertificate">
-                  <button className="current-button font-face-gm-aquire-bold">
-                    Generate Certificate
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="div-box-owned">
-          <div className="current-certi-main">
-            <div className="curren-certi-img">
-              <img src={nft5} alt="" className="nfts-img4" />
-            </div>
-            <div className="current-certi-info">
-              <div>
-                <h3 className="font-face-gm-aquire-bold">NFT Name</h3>
-                <p className="font-face-gm-aqiure">Secondory Text</p>
-              </div>
-              <div className="current-certi-mainbtn">
-                <Link to="/createcertificate">
-                  <button className="current-button font-face-gm-aquire-bold">
-                    Generate Certificate
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="div-box-owned">
-          <div className="current-certi-main">
-            <div className="curren-certi-img">
-              <img src={nft4} alt="" className="nfts-img4" />
-            </div>
-            <div className="current-certi-info">
-              <div>
-                <h3 className="font-face-gm-aquire-bold">NFT Name</h3>
-                <p className="font-face-gm-aqiure">Secondory Text</p>
-              </div>
-              <div className="current-certi-mainbtn">
-                <Link to="/createcertificate">
-                  <button className="current-button font-face-gm-aquire-bold">
-                    Generate Certificate
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="div-box-owned">
-          <div className="current-certi-main">
-            <div className="curren-certi-img">
-              <img src={nft1} alt="" className="nfts-img4" />
-            </div>
-            <div className="current-certi-info">
-              <div>
-                <h3 className="font-face-gm-aquire-bold">NFT Name</h3>
-                <p className="font-face-gm-aqiure">Secondory Text</p>
-              </div>
-              <div className="current-certi-mainbtn">
-                <Link to="/createcertificate">
-                  <button className="current-button font-face-gm-aquire-bold">
-                    Generate Certificate
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div> */}
+
             </div>
           </>
         )}

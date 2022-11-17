@@ -35,6 +35,7 @@ function Registration() {
       userData.email,
       ""
     );
+
     // navigate("/profile");
     usernameRef.current.value = "";
     emailRef.current.value = "";
