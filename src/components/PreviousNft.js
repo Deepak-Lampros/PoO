@@ -62,7 +62,10 @@ function PreviousNft() {
         console.error(error);
       });
 
-    perviousNftData[0] = { ...perviousNftData[0], chain: chain };
+    console.log(perviousNftData.length > 0);
+    if (perviousNftData.length > 0) {
+      perviousNftData[0] = { ...perviousNftData[0], chain: chain };
+    }
 
     getFinalNftData();
     setLoading(false);
@@ -70,6 +73,7 @@ function PreviousNft() {
       console.log(perviousNftData);
 
       // for adding the meta data
+
       for (let i = 0; i < perviousNftData.length; i++) {
         const options = {
           method: "GET",
@@ -106,6 +110,7 @@ function PreviousNft() {
         // console.log(perviousNftData[i].metadata);
         perviousNftData[i].metadata = JSON.parse(perviousNftData[i].metadata);
       }
+
 
       console.log(perviousNftData);
       setPreviousNftData(perviousNftData);
