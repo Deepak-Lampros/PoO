@@ -22,19 +22,23 @@ function CurrentNft() {
 
   const fetchCurrentNft = async (chain) => {
     setLoading(true);
-    let cursor = ""
+    let cursor = "";
     const account = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
 
-    var address = account[0];
+    // var address = account[0];
 
-    // var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
+    var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
     do {
       const walletnft = {
         method: "GET",
         url: `https://deep-index.moralis.io/api/v2/${address}/nft`,
-        params: { chain: chain ? `${chain}` : "mumbai", format: "decimal", cursor: cursor },
+        params: {
+          chain: chain ? `${chain}` : "mumbai",
+          format: "decimal",
+          cursor: cursor,
+        },
         headers: {
           accept: "application/json",
           "X-API-Key":
@@ -57,21 +61,17 @@ function CurrentNft() {
     walletNftData[0] = { ...walletNftData[0], chain: chain };
     getFinalNftData();
 
-
     setLoading(false);
   };
 
   function getFinalNftData() {
-
     let walletloop = 0;
     console.log(walletNftData.length);
     while (walletloop !== walletNftData.length) {
       for (let i = 0; i < walletNftData[walletloop].result.length; i++) {
-
         walletNftData[walletloop].result[i].metadata = JSON.parse(
           walletNftData[walletloop].result[i].metadata
         );
-
       }
       console.log("hello");
       walletloop++;
@@ -154,11 +154,10 @@ function CurrentNft() {
                 }
 
                 return item.result.map((item, i) => {
-
                   return (
                     <div key={i} className="div-box-owned">
                       {item.metadata !== null &&
-                        item.name !== "Web3 Club Tour" ? (
+                      item.name !== "Web3 Club Tour" ? (
                         <div className="current-certi-main">
                           <div className="curren-certi-img">
                             <img

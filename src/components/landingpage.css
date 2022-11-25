@@ -381,6 +381,89 @@
   font-size: 1.5rem;
   color: white;
 }
+.close-icon-network {
+  content: "x";
+  cursor: pointer;
+  position: fixed;
+  right: calc(40% - 55px);
+  top: calc(100vh - 65vh - 50px);
+  background: #00566a;
+  color: #fff;
+  width: 25px;
+  height: 27px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #999;
+  font-size: 25px;
+}
+.center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: -1;
+  background-image: url("../assests/images/Bg.svg");
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: auto;
+  max-height: auto;
+  min-height: 100vh;
+}
+.wave {
+  width: 5px;
+  height: 100px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 86, 106, 1) 0%,
+    rgba(241, 99, 134, 1) 100%
+  );
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
 @media screen and (max-width: 1024px) {
   .p-top1-waves {
     width: 100%;
@@ -438,6 +521,7 @@
     margin-top: -37%;
     right: 23vw;
   }
+
   .p-certi-content {
     font-size: 1.2rem;
     margin-top: -20vw;

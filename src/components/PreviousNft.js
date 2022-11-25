@@ -19,7 +19,6 @@ function PreviousNft() {
   const dataFetchedRef = useRef(false);
   var chain = "mumbai";
 
-
   useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
@@ -32,8 +31,8 @@ function PreviousNft() {
       method: "eth_requestAccounts",
     });
 
-    var address = account[0];
-    // var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
+    // var address = account[0];
+    var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
     const options = {
       method: "GET",
       url: `https://deep-index.moralis.io/api/v2/${address}/nft/transfers`,
@@ -68,7 +67,7 @@ function PreviousNft() {
     }
 
     getFinalNftData();
-    setLoading(false);
+
     async function getFinalNftData() {
       console.log(perviousNftData);
 
@@ -111,9 +110,9 @@ function PreviousNft() {
         perviousNftData[i].metadata = JSON.parse(perviousNftData[i].metadata);
       }
 
-
       console.log(perviousNftData);
       setPreviousNftData(perviousNftData);
+      setLoading(false);
     }
   };
   function onChangeValue(e) {
@@ -182,46 +181,42 @@ function PreviousNft() {
             </div>
             <div className="current-grid-container">
               {previousnftData.map((item, i) => {
-
                 if (item.chain !== undefined) {
                   chain = item.chain;
                 }
                 return (
-
-                  (
-                    <div key={i} className="div-box-owned">
-                      {item.metadata !== null ?
-                        <div className="current-certi-main">
-                          <div className="curren-certi-img">
-                            <img
-                              src={item.metadata.image}
-                              alt=""
-                              className="nfts-img4"
-                            />
+                  <div key={i} className="div-box-owned">
+                    {item.metadata !== null ? (
+                      <div className="current-certi-main">
+                        <div className="curren-certi-img">
+                          <img
+                            src={item.metadata.image}
+                            alt=""
+                            className="nfts-img4"
+                          />
+                        </div>
+                        <div className="current-certi-info">
+                          <div>
+                            <h3 className="font-face-gm-aquire-bold">
+                              {item.metadata.name}
+                            </h3>
                           </div>
-                          <div className="current-certi-info">
-                            <div>
-                              <h3 className="font-face-gm-aquire-bold">
-                                {item.metadata.name}
-                              </h3>
-                            </div>
-                            <div className="current-certi-mainbtn">
-                              <Link
-                                to={"/createcertificateprevious"}
-                                state={{ data: item, chain: chain }}
-                              >
-                                <button className="current-button font-face-gm-aquire-bold">
-                                  Generate Certificate
-                                </button>
-                              </Link>
-                            </div>
+                          <div className="current-certi-mainbtn">
+                            <Link
+                              to={"/createcertificateprevious"}
+                              state={{ data: item, chain: chain }}
+                            >
+                              <button className="current-button font-face-gm-aquire-bold">
+                                Generate Certificate
+                              </button>
+                            </Link>
                           </div>
-                        </div> : null}
-                    </div>
-                  )
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
                 );
               })}
-
             </div>
           </>
         )}

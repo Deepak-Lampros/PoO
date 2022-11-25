@@ -30,6 +30,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function LandingPage() {
   const cookies = new Cookies();
+  const [loading, setLoading] = useState(true);
   const [walletAddress, setWalletAddress] = useState("");
   const navigate = useNavigate();
   const Poo_contract_address = "0xDBB86968f591537F30a5b3FeB8D4cc6aec3c603b";
@@ -42,6 +43,9 @@ function LandingPage() {
     // getCurrentWalletConnected();
     // addWalleteListener();
     // checkChain();
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
   }, []);
 
   const connectWallet = async () => {
@@ -52,21 +56,23 @@ function LandingPage() {
     if (chain.chainId != 1029) {
       console.log("btc");
       setPopup(true);
-    }
-    else {
+    } else {
       if (window.ethereum) {
         try {
           const account = await window.ethereum.request({
             method: "eth_requestAccounts",
           });
           setWalletAddress(account[0]);
-          const userDetails = new ethers.Contract(Poo_contract_address, Poo.abi, signer);
+          const userDetails = new ethers.Contract(
+            Poo_contract_address,
+            Poo.abi,
+            signer
+          );
           const fetchdata = await userDetails.getUser();
           if (fetchdata.email === "") {
             navigate("/register");
-          }
-          else {
-            navigate("/profile");
+          } else {
+            navigate("/currentnft");
           }
           console.log(account[0]);
         } catch (err) {
@@ -79,7 +85,6 @@ function LandingPage() {
   };
 
   const checkChain = async () => {
-
     // const chain = await provider.getNetwork();
     // if (chain.chainId != 1029) {
     //   var tx = addChain();
@@ -87,28 +92,31 @@ function LandingPage() {
     //     connectWallet();
     // }
     // console.log(chain);
-  }
+  };
 
   const addChain = () => {
+    setLoading(true);
     if (window.ethereum) {
       window.ethereum.request({
         method: "wallet_addEthereumChain",
-        params: [{
-          chainId: "0x405",
-          rpcUrls: ["https://pre-rpc.bittorrentchain.io/"],
-          chainName: "BitTorrent Chain Donau",
-          // nativeCurrency: {
-          //   name: "BitTorrent",
-          //   symbol: "BTT",
-          //   decimals: 18
-          // },
-          blockExplorerUrls: ["https://testscan.bittorrentchain.io/"]
-        }]
-      })
+        params: [
+          {
+            chainId: "0x405",
+            rpcUrls: ["https://pre-rpc.bittorrentchain.io/"],
+            chainName: "BitTorrent Chain Donau",
+            // nativeCurrency: {
+            //   name: "BitTorrent",
+            //   symbol: "BTT",
+            //   decimals: 18
+            // },
+            blockExplorerUrls: ["https://testscan.bittorrentchain.io/"],
+          },
+        ],
+      });
     } else {
-      alert("Please Install a wallet to proceed.")
+      alert("Please Install a wallet to proceed.");
     }
-  }
+  };
 
   //   if (typeof window != "undefined" && window.ethereum != "undefined") {
   //     try {
@@ -166,6 +174,7 @@ function LandingPage() {
   // };
 
   const getCurrentWalletConnected = async () => {
+    setLoading(true);
     if (typeof window != "undefined" && window.ethereum != "undefined") {
       try {
         const account = await window.ethereum.request({
@@ -183,9 +192,11 @@ function LandingPage() {
     } else {
       alert("Please Install Metamast");
     }
+    setLoading(false);
   };
 
   const addWalleteListener = async () => {
+    setLoading(true);
     if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
       window.ethereum.on("accountChanged", (account) => {
         setWalletAddress(account[0]);
@@ -195,139 +206,167 @@ function LandingPage() {
       setWalletAddress("");
       console.log("Please Install Metamast");
     }
+    setLoading(false);
   };
   return (
     <>
       <section className="poo-main-section">
-        <div className="poo-section1-landingpage">
-          <div className="logo-landingpage-main">
-            <img src={verify} className="logo-register" />
+        {loading ? (
+          <div class="center">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
           </div>
-          <div className="p-navbar-main">
-            <button
-              onClick={() => {
-                connectWallet();
-              }}
-              className="p-connect-btn font-face-gm-aqiure"
-            >
-              {walletAddress && walletAddress.length > 0
-                ? `Connected: ${walletAddress.substring(
-                  0,
-                  6
-                )}...${walletAddress.substring(38)}`
-                : " Connect Wallet"}
-            </button>
-          </div>
-          <div className="p-wave1-main">
-            <img src={topwave} alt="waves" className="p-top1-waves" />
-          </div>
-          <div className="d-hero">
-            <video autoPlay loop muted className="p-middle-video">
-              <source src={nftvideo} type="video/mp4" />
-              <source src={nftvideo} type="video/ogg" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div className="p-wave2-main">
-            <img src={topwave} alt="waves" className="p-top2-waves" />
-          </div>
-        </div>
-
-        <section className="p-section2-landingpage">
-          <div className="section2-main-div">
-            <div className="p-nft-content font-face-gm">
-              <h3>
-                "Claim the ownership of your prized possessions - your NFTs!
-              </h3>
-            </div>
-            <div className="temp-svg">
-              <div className="p-circle1-svg">
-                <img src={circle1} alt="" className="p-circle1" />
+        ) : (
+          <>
+            <div className="poo-section1-landingpage">
+              <div className="logo-landingpage-main">
+                <img src={verify} className="logo-register" />
               </div>
-              <div className="p-circle2-svg">
-                <img src={circle1} alt="" className="p-circle2" />
+              <div className="p-navbar-main">
+                <button
+                  onClick={() => {
+                    connectWallet();
+                  }}
+                  className="p-connect-btn font-face-gm-aqiure"
+                >
+                  {walletAddress && walletAddress.length > 0
+                    ? `Connected: ${walletAddress.substring(
+                        0,
+                        6
+                      )}...${walletAddress.substring(38)}`
+                    : " Connect Wallet"}
+                </button>
               </div>
-            </div>
-
-            <div className="p-abortwave-main ">
-              <img src={abort1} alt="abort" className="p-abort-wave" />
-            </div>
-            <div className="temp-svg2">
-              <div className="p-circle3-svg">
-                <img src={circle1} alt="" className="p-circle3" />
+              <div className="p-wave1-main">
+                <img src={topwave} alt="waves" className="p-top1-waves" />
               </div>
-              <div className="p-circle4-svg">
-                <img src={circle1} alt="" className="p-circle4" />
+              <div className="d-hero">
+                <video autoPlay loop muted className="p-middle-video">
+                  <source src={nftvideo} type="video/mp4" />
+                  <source src={nftvideo} type="video/ogg" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div className="p-wave2-main">
+                <img src={topwave} alt="waves" className="p-top2-waves" />
               </div>
             </div>
 
-            <div className="p-nfts-main">
-              <img src={img1} alt="" className="nfts p-img1" />
-              <img src={img2} alt="" className="nfts p-img2" />
-              <img src={img3} alt="" className="nfts p-img3" />
-              <img src={img4} alt="" className="nfts p-img4" />
-              <img src={img5} alt="" className="nfts p-img5" />
-              <img src={img6} alt="" className="nfts p-img6" />
-              <img src={img7} alt="" className="nfts p-img7" />
-              <img src={img8} alt="" className="nfts p-img8" />
-            </div>
-          </div>
-        </section>
-
-        <section className="p-section3-landingpage">
-          <div className="certi-heading font-face-gm">
-            <h3>
-              PoO parses the blockchain data and creates a digital certificate
-              as a proof of ownership
-            </h3>
-          </div>
-          <div className="section3-main-div">
-            <div className="coin-circle-flex">
-              <div className="p-coin-main">
-                <img src={coin} alt="" className="p-nft-coin" />
-              </div>
-              <div className="p-circle-main">
-                <img src={circle1} alt="" className="p-circle-5" />
-              </div>
-            </div>
-
-            <div className="p-nft-certi-main-poo">
-              <img src={certificate} alt="" className="p-nft-certificate" />
-
-              <div className="img-content-flex">
-                <img src={certiImg} alt="" className="p-nft-certificateImage" />
-                <div className="certi-title font-face-gm-extralight ">
-                  Certificate Of Ownership
+            <section className="p-section2-landingpage">
+              <div className="section2-main-div">
+                <div className="p-nft-content font-face-gm">
+                  <h3>
+                    "Claim the ownership of your prized possessions - your NFTs!
+                  </h3>
                 </div>
-
-                <div className="p-certi-content3">
-                  <div className="font-face-gm ownership-periods">
-                    Ownership Periods
+                <div className="temp-svg">
+                  <div className="p-circle1-svg">
+                    <img src={circle1} alt="" className="p-circle1" />
                   </div>
-                  <div className="font-face-gm-thin">
-                    10th Oct 2022 - 12th Oct 2022
+                  <div className="p-circle2-svg">
+                    <img src={circle1} alt="" className="p-circle2" />
                   </div>
                 </div>
-                <div className="p-certi-content">
-                  <div className="font-face-gm">Nft was verified on</div>
-                  <div className="font-face-gm">Verified By</div>
+
+                <div className="p-abortwave-main ">
+                  <img src={abort1} alt="abort" className="p-abort-wave" />
                 </div>
-                <div className="p-certi-content2">
-                  <div className="font-face-gm-thin">17/10/2022</div>
-                  <img src={verify} alt="" className="p-nft-verifify" />
+                <div className="temp-svg2">
+                  <div className="p-circle3-svg">
+                    <img src={circle1} alt="" className="p-circle3" />
+                  </div>
+                  <div className="p-circle4-svg">
+                    <img src={circle1} alt="" className="p-circle4" />
+                  </div>
+                </div>
+
+                <div className="p-nfts-main">
+                  <img src={img1} alt="" className="nfts p-img1" />
+                  <img src={img2} alt="" className="nfts p-img2" />
+                  <img src={img3} alt="" className="nfts p-img3" />
+                  <img src={img4} alt="" className="nfts p-img4" />
+                  <img src={img5} alt="" className="nfts p-img5" />
+                  <img src={img6} alt="" className="nfts p-img6" />
+                  <img src={img7} alt="" className="nfts p-img7" />
+                  <img src={img8} alt="" className="nfts p-img8" />
                 </div>
               </div>
+            </section>
+
+            <section className="p-section3-landingpage">
+              <div className="certi-heading font-face-gm">
+                <h3>
+                  PoO parses the blockchain data and creates a digital
+                  certificate as a proof of ownership
+                </h3>
+              </div>
+              <div className="section3-main-div">
+                <div className="coin-circle-flex">
+                  <div className="p-coin-main">
+                    <img src={coin} alt="" className="p-nft-coin" />
+                  </div>
+                  <div className="p-circle-main">
+                    <img src={circle1} alt="" className="p-circle-5" />
+                  </div>
+                </div>
+
+                <div className="p-nft-certi-main-poo">
+                  <img src={certificate} alt="" className="p-nft-certificate" />
+
+                  <div className="img-content-flex">
+                    <img
+                      src={certiImg}
+                      alt=""
+                      className="p-nft-certificateImage"
+                    />
+                    <div className="certi-title font-face-gm-extralight ">
+                      Certificate Of Ownership
+                    </div>
+
+                    <div className="p-certi-content3">
+                      <div className="font-face-gm ownership-periods">
+                        Ownership Periods
+                      </div>
+                      <div className="font-face-gm-thin">
+                        10th Oct 2022 - 12th Oct 2022
+                      </div>
+                    </div>
+                    <div className="p-certi-content">
+                      <div className="font-face-gm">Nft was verified on</div>
+                      <div className="font-face-gm">Verified By</div>
+                    </div>
+                    <div className="p-certi-content2">
+                      <div className="font-face-gm-thin">17/10/2022</div>
+                      <img src={verify} alt="" className="p-nft-verifify" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div className="landigpage-footer font-face-gm">
+              <h3>Copyright © 2022 PoO. All Rights Reserved</h3>
             </div>
-          </div>
-        </section>
-        <div className="landigpage-footer font-face-gm">
-          <h3>Copyright © 2022 PoO. All Rights Reserved</h3>
-        </div>
+          </>
+        )}
       </section>
 
       {popup ? (
         <div className="add-chain-main">
           <div className="add-chain-box ">
+            <span
+              className="close-icon-network"
+              onClick={() => setPopup(false)}
+            >
+              x
+            </span>
             <p className="add-chain-message font-face-gm">
               please switch to BTTC network
             </p>
@@ -340,7 +379,6 @@ function LandingPage() {
           </div>
         </div>
       ) : null}
-
     </>
   );
 }

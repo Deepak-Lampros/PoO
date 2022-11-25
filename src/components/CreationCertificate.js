@@ -39,7 +39,6 @@ function CreationCertificate() {
   console.log("Location", location.state.data);
   var chain = location.state.chain;
 
-
   const userDetails = new ethers.Contract(
     Poo_contract_address,
     Poo.abi,
@@ -54,15 +53,19 @@ function CreationCertificate() {
     var address = account[0];
     // var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
 
-    let token_address = datas.token_address
+    let token_address = datas.token_address;
     let token_id = datas.token_id;
     console.log(token_address);
 
     const options = {
-      method: 'GET',
+      method: "GET",
       url: `https://deep-index.moralis.io/api/v2/nft/${token_address}/${token_id}/transfers`,
-      params: { chain: chain ? `${chain}` : "mumbai", format: 'decimal' },
-      headers: { accept: 'application/json', 'X-API-Key': 'zx1cuyNtlU6YfCw1ARlaDUSJQLXC5uXlfM9ebpJhJSTbbglLJs6sqvHEF9avPztV' }
+      params: { chain: chain ? `${chain}` : "mumbai", format: "decimal" },
+      headers: {
+        accept: "application/json",
+        "X-API-Key":
+          "zx1cuyNtlU6YfCw1ARlaDUSJQLXC5uXlfM9ebpJhJSTbbglLJs6sqvHEF9avPztV",
+      },
     };
 
     await axios
@@ -75,18 +78,16 @@ function CreationCertificate() {
         console.error(error);
       });
 
-
     for (let i = 0; i < nftData.result.length; i++) {
-      if (nftData.result[i].to_address.toLowerCase() === address.toLowerCase()) {
+      if (
+        nftData.result[i].to_address.toLowerCase() === address.toLowerCase()
+      ) {
         userNftData = nftData.result[i];
       }
     }
     console.log(userNftData.block_timestamp);
     setTemp(userNftData);
-
-
-
-  }
+  };
 
   function dataURLtoFile(dataurl, filename) {
     var arr = dataurl.split(","),
@@ -289,9 +290,9 @@ function CreationCertificate() {
                 <div className="div5">
                   <h3 className="date-input1 font-face-gm">
                     {/* {datas.from_date === undefined */}
-                    {datas.block_timestamp === undefined ? new Date().toISOString().slice(0, 10) :
-                      datas.block_timestamp.slice(0, 10)}
-
+                    {datas.block_timestamp === undefined
+                      ? new Date().toISOString().slice(0, 10)
+                      : datas.block_timestamp.slice(0, 10)}
                   </h3>
                   {/* <input
                     type="file"
@@ -333,7 +334,8 @@ function CreationCertificate() {
                         Ownership Period
                       </div>
                       <div className="font-face-gm-extralight owner-period2">
-                        {temp ? temp.block_timestamp.slice(0, 10) : null} - Present
+                        {temp ? temp.block_timestamp.slice(0, 10) : null} -
+                        Present
                       </div>
                     </div>
                     <div className="p-certi-content11">

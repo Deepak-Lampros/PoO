@@ -44,6 +44,7 @@ function Registration() {
     const fetchdata = await registerUser.getUser();
     console.log(fetchdata);
     setLoader(false);
+    navigate("/profile");
   };
 
   return (

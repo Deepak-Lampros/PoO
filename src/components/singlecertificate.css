@@ -150,7 +150,7 @@
 .singlecertificate-nfts-image {
   width: 20vw;
   border-radius: 10px;
-  height: 250px;
+  height: auto;
 }
 /* ......................creation certificate css................... */
 
@@ -211,7 +211,7 @@
   font-weight: 700;
 }
 .create-certi-div2 {
-  padding-top: 10%;
+  padding-top: 5%;
 }
 #lname-create-certi {
   border-radius: 10px;
@@ -253,7 +253,7 @@
   letter-spacing: 2px;
   margin-bottom: 30px;
   /* margin-left: 20%; */
-  /* text-align: center; */
+  text-align: center;
 }
 .p-certi-content11 {
   display: flex;
