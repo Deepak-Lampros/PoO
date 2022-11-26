@@ -31,8 +31,8 @@ function PreviousNft() {
       method: "eth_requestAccounts",
     });
 
-    // var address = account[0];
-    var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
+    var address = account[0];
+    // var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
     const options = {
       method: "GET",
       url: `https://deep-index.moralis.io/api/v2/${address}/nft/transfers`,
