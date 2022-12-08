@@ -611,6 +611,108 @@
     position: relative;
   }
 }
+/* @media only screen and (max-width: 375px) {
+  .logo-register {
+    width: 25%;
+    position: relative;
+    top: 0;
+  }
+  .p-connect-btn {
+    margin: 5px;
+    padding: 5px;
+    font-size: 6px;
+    width: 25%;
+    height: 16px;
+  }
+
+  .p-circle4-svg {
+    width: 3em;
+    position: absolute;
+    bottom: 22vw;
+    right: 17vw;
+    transform: rotate(140deg);
+  }
+
+  .certi-heading {
+    width: 70%;
+    margin-left: 15%;
+    font-size: 0.5rem;
+  }
+
+  .p-nft-content {
+    font-size: 0.6rem;
+  }
+  .p-circle2-svg {
+    margin-top: 33px;
+  }
+  .p-circle1-svg {
+    margin-top: -40vw;
+  }
+  .p-circle3-svg {
+    bottom: 26vw;
+    left: 26vw;
+  }
+  .certi-title {
+    position: absolute;
+    text-transform: uppercase;
+
+    width: 40%;
+    color: #ffff;
+    right: 23vw;
+    font-size: 0.5rem;
+    word-spacing: 5px;
+    letter-spacing: 2px;
+
+    margin-top: -38%;
+  }
+  .p-section3-landingpage {
+    width: 100%;
+  }
+  .p-certi-content3 {
+    position: absolute;
+
+    left: 38vw;
+    font-size: 0.5rem;
+    justify-content: space-around;
+    width: 40%;
+    margin-top: -28%;
+  }
+  .ownership-periods {
+    font-size: 0.5rem;
+  }
+  .p-certi-content {
+    font-size: 0.5rem;
+    margin-top: -19vw;
+    width: 33%;
+  }
+  .p-certi-content2 {
+    display: flex;
+    position: absolute;
+
+    left: 45vw;
+    font-size: 0.5rem;
+    justify-content: space-around;
+    width: 30%;
+
+    align-items: center;
+  }
+  .p-circle-5 {
+    width: 50%;
+    position: absolute;
+    left: 60vw;
+    margin-top: 20px;
+  }
+  .landigpage-footer {
+    font-size: 0.5rem;
+  }
+  .logo-landingpage-main {
+    left: 5vw;
+    position: absolute;
+    width: 95%;
+    z-index: 1;
+  }
+}
+
 @media only screen and (max-width: 320px) {
   .logo-register {
     width: 15%;
@@ -655,23 +757,22 @@
   .certi-title {
     position: absolute;
     text-transform: uppercase;
-    /* top: 280%; */
+
     width: 40%;
     color: #ffff;
     right: 23vw;
     font-size: 0.5rem;
     word-spacing: 5px;
     letter-spacing: 2px;
-    /* line-height: 60px; */
+
     margin-top: -38%;
   }
   .p-section3-landingpage {
     width: 100%;
-    /* margin-top: -50px; */
   }
   .p-certi-content3 {
     position: absolute;
-    /* top: 305%; */
+
     left: 38vw;
     font-size: 0.5rem;
     justify-content: space-around;
@@ -689,12 +790,12 @@
   .p-certi-content2 {
     display: flex;
     position: absolute;
-    /* top: 305%; */
+
     left: 45vw;
     font-size: 0.5rem;
     justify-content: space-around;
     width: 30%;
-    /* margin-top: -10%; */
+
     align-items: center;
   }
   .p-circle-5 {
@@ -706,4 +807,4 @@
   .landigpage-footer {
     font-size: 0.5rem;
   }
-}
+} */
