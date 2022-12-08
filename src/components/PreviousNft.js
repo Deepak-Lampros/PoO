@@ -31,8 +31,8 @@ function PreviousNft() {
       method: "eth_requestAccounts",
     });
 
-    // var address = account[0];
-    var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
+    var address = account[0];
+    // var address = "0x7b86cEeE7eFF80693F4B2a98dA209eff29531D50";
     const options = {
       method: "GET",
       url: `https://deep-index.moralis.io/api/v2/${address}/nft/transfers`,
@@ -147,12 +147,14 @@ function PreviousNft() {
               <select
                 name="language"
                 id="language-dropdown "
-                className="font-face-gm-medium language-dropdown "
+                className="font-face-gm-aquire-bold language-dropdown "
                 onChange={(e) => {
                   onChangeValue(e.target.value);
                 }}
               >
-                <option value="select">select</option>
+                <option value="select" className="font-face-gm-aquire-bold">
+                  select
+                </option>
                 <option value="eth">eth</option>
                 <option value="0x1">0x1</option>
                 <option value="goerli">goerli</option>

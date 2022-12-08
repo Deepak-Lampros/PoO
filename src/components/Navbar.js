@@ -37,9 +37,7 @@ function Navbar() {
         <div className="main-header">
           <div className="header-container">
             <div className="logo">
-              <Link to="/profile">
-                <img src={logo} className="logo-navbar" />
-              </Link>
+              <img src={logo} className="logo-navbar" />
             </div>
             <div className="left-navbar">
               <div className="navigation ">
@@ -58,14 +56,16 @@ function Navbar() {
                 </ul>
               </div>
               <div className="user-img">
-                <img
-                  class="p-user"
-                  src={user}
-                  alt="Rounded avatar"
-                  onClick={() => {
-                    takeToProfile();
-                  }}
-                />{" "}
+                <Link to="/profile">
+                  <img
+                    class="p-user"
+                    src={user}
+                    alt="Rounded avatar"
+                    onClick={() => {
+                      takeToProfile();
+                    }}
+                  />{" "}
+                </Link>
               </div>
               <div className="download-btn">
                 <button
